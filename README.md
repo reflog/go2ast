@@ -14,7 +14,7 @@
 ## Usage
 
 ```sh
-echo &#34;a := 1&#34; | go run main.go
+echo "a := 1" | go run main.go
 ```
 
 ## Example output
