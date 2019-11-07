@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Go2AST</title>
+    <script src="wasm_exec.js"></script>
+    <script type="text/javascript">
+
+function fetchAndInstantiate(url, importObject) {
+  return fetch(url).then(response =>
+    response.arrayBuffer()
+  ).then(bytes =>
+    WebAssembly.instantiate(bytes, importObject)
+  ).then(results =>
+      results.instance
+  );
+}
+var go = new Go();
+var mod = fetchAndInstantiate("/main.wasm", go.importObject);
+let convertBtn, inputText, outputText;
+window.onload = function() {
+  mod.then(function(instance) {
+    go.run(instance);    
+    convertBtn = document.getElementById("convert");
+    function convertCode(){      
+      outputText.innerHTML = convert(inputText.value);
+    }
+    convertBtn.addEventListener("click", convertCode);
+    inputText = document.getElementById("input");
+    outputText = document.getElementById("output");
+    inputText.value = "a:=1";
+    convertCode()
+  });
+};
+
+    </script>
+  </head>
+  <body>
+    <h1>
+      Go 2 AST
+    </h1>
+    <table border="1">
+    <tbody>
+    <tr>
+    <td>
+      <h3>type your go code here:</h3>
+      <textarea rows="4" cols="50" id="input">a:=1</textarea>
+    </td>
+    <td>
+      <h3>here's your AST:</h3>
+      <pre id="output"> </pre>
+    </td>
+    </tr>
+    <tr>
+    <td colspan=2><button id="convert">
+      Convert
+      </button></td>
+    
+    </tr>
+    </tbody>
+    </table>
+  </body>
+</html>
