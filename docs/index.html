@@ -15,7 +15,7 @@ function fetchAndInstantiate(url, importObject) {
   );
 }
 var go = new Go();
-var mod = fetchAndInstantiate("/main.wasm", go.importObject);
+var mod = fetchAndInstantiate("main.wasm", go.importObject);
 let convertBtn, inputText, outputText;
 window.onload = function() {
   mod.then(function(instance) {
