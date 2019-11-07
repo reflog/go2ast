@@ -39,6 +39,10 @@ echo "a := 1" | go run main.go
 
 ```
 
+## WASM Demo
+
+Try this live: https://reflog.github.io/go2ast/
+
 ## Author
 
 👤 **Eli Yukelzon**
